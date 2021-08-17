@@ -1,0 +1,15 @@
+<h2 class="page-title">Memo List</h2>
+<div class="main-items">
+  <div class="btn-wrapper">
+    <a href="/memos/new"><button type="button" class="btn">Add</button></a>
+  </div>
+  <div class="memo-lists">
+    <ul>
+      <% memos.each do |memo| %>
+        <li class="memo-lists__list">
+          <a href="/memos/<%= memo[:id] %>"><%= h memo[:title] %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
