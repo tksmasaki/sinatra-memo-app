@@ -22,7 +22,6 @@ class MemoApp < Sinatra::Base
   end
 
   before do
-    @memo = Memo.new
     pass unless request.post? || request.patch?
 
     redirect to('/memos') if params['title'].blank?
@@ -39,7 +38,7 @@ class MemoApp < Sinatra::Base
   get '/memos' do
     erb :index, locals: {
       title: 'Home',
-      memos: @memo.find_all
+      memos: Memo.find_all
     }
   end
 
@@ -48,37 +47,37 @@ class MemoApp < Sinatra::Base
   end
 
   get '/memos/:id' do |id|
-    memo = @memo.find_by(id)
+    memo = Memo.find_by(id.to_i)
     raise Sinatra::NotFound unless memo
 
     erb :show, locals: {
-      title: memo[1]['title'],
+      title: memo['title'],
       memo: memo
     }
   end
 
   get '/memos/:id/edit' do |id|
-    memo = @memo.find_by(id)
+    memo = Memo.find_by(id.to_i)
     raise Sinatra::NotFound unless memo
 
     erb :edit, locals: {
-      title: "Edit | #{memo[1]['title']}",
+      title: "Edit | #{memo['title']}",
       memo: memo
     }
   end
 
   post '/memos' do
-    new_id = @memo.create(params)
+    new_id = Memo.create(params)
     redirect to("/memos/#{new_id}")
   end
 
   patch '/memos/:id' do |id|
-    @memo.update(id, params)
+    Memo.update(id.to_i, params)
     redirect to("/memos/#{id}")
   end
 
   delete '/memos/:id' do |id|
-    @memo.delete(id)
+    Memo.delete(id.to_i)
     redirect to('/memos')
   end
 

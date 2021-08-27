@@ -5,9 +5,9 @@
   </div>
   <div class="memo-lists">
     <ul>
-      <% memos.each do |id, val| %>
+      <% memos.each do |memo| %>
         <li class="memo-lists__list">
-          <a href="/memos/<%= id %>"><%= h val['title'] %></a>
+          <a href="/memos/<%= memo['id'] %>"><%= h memo['title'] %></a>
         </li>
       <% end %>
     </ul>
