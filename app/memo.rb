@@ -1,56 +1,46 @@
 # frozen_string_literal: true
 
-require 'json'
+require 'pg'
 
 class Memo
-  FILE_PATH = File.expand_path('../db/memos.json', __dir__)
+  @conn = PG.connect(dbname: 'sinatra_memo_app')
+  @conn.internal_encoding = 'UTF-8'
 
-  def find_all
-    retrieve_data.reject { |k, _v| k == 'next_id' }
-  end
+  class << self
+    def find_all
+      memos = []
+      sql = 'SELECT * FROM memos'
+      @conn.exec(sql) { |rows| rows.each { |row| memos << row } }
+      memos
+    end
 
-  def find_by(id)
-    retrieve_data.find { |k, _v| k == id }
-  end
+    def find_by(id)
+      sql = 'SELECT * FROM memos WHERE id = $1'
+      @conn.exec_params(sql, [id])[0]
+    end
 
-  def create(params)
-    memo_data = retrieve_data
-    new_id = memo_data['next_id']
+    def create(params)
+      sql = <<~'SQL'
+        INSERT
+          INTO memos (title, content)
+          VALUES ($1, $2)
+          RETURNING id
+      SQL
+      @conn.exec_params(sql, [params['title'], params['content']])[0]['id']
+    end
 
-    memo_data[new_id] = {
-      title: params['title'],
-      content: params['content']
-    }
-    memo_data['next_id'] = (new_id.to_i + 1).to_s
+    def update(id, params)
+      sql = <<~'SQL'
+        UPDATE memos
+          SET title = $1, content = $2
+          WHERE id = $3
+      SQL
+      @conn.exec_params(sql, [params['title'], params['content'], id])
+    end
 
-    save_hash_to_json(memo_data)
-    new_id
-  end
-
-  def update(id, params)
-    memo_data = retrieve_data
-
-    memo_data[id] = {
-      title: params['title'],
-      content: params['content']
-    }
-
-    save_hash_to_json(memo_data)
-  end
-
-  def delete(id)
-    memo_data = retrieve_data
-    memo_data.delete(id)
-    save_hash_to_json(memo_data)
-  end
-
-  private
-
-  def retrieve_data
-    File.open(FILE_PATH) { |f| JSON.parse(f.read) }
-  end
-
-  def save_hash_to_json(hash)
-    File.open(FILE_PATH, 'w') { |file| JSON.dump(hash, file) }
+    def delete(id)
+      sql = 'DELETE FROM memos WHERE id = $1'
+      @conn.exec_params(sql, [id])
+    end
   end
 end
