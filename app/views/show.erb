@@ -1,0 +1,13 @@
+<h2 class="page-title"><%= h memo[1]['title'] %></h2>
+<div class="main-items">
+  <div class="memo-content">
+    <p><%= h memo[1]['content'] %></p>
+  </div>
+  <div class="btn-wrapper button-in-middle">
+    <a href="/memos/<%= memo[0] %>/edit"><button type="button" class="btn">Edit</button></a>
+    <form action="/memos/<%= memo[0] %>" method="post" class="delete-form">
+      <input type="hidden" name="_method" value="delete">
+      <button type="submit" class="btn">delete</button>
+    </form>
+  </div>
+</div>

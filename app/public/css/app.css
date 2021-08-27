@@ -1,0 +1,134 @@
+/*
+////////////////////////////////////////
+app.css
+////////////////////////////////////////
+*/
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+header {
+  padding: 0.7rem 3rem;
+  width: 100%;
+  background-color: white;
+  border-bottom: solid 1px #585551;
+}
+
+main {
+  flex: 1;
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+ul {
+  list-style: inside;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.page-header {
+  font-size: 2.8rem;
+  text-decoration: none;
+  color: #585551;
+  font-weight: bold;
+}
+
+.page-title {
+  margin: 2rem 3rem;
+  font-size: 2.5rem;
+}
+
+.btn-wrapper {
+  margin: 1rem 0;
+}
+
+.btn {
+  width: 150px;
+  padding: 3px 1px;
+  margin: 0 1rem;
+  font-size: 1.5rem;
+  color: white;
+  background-color: #585551;
+  border-width: 0 0 4px 0;
+  border-bottom: solid 4px #2c2a28;
+  border-radius: 3px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn:active {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  border-bottom: none;
+}
+
+.main-items {
+  margin: 2rem 3rem;
+}
+
+.memo-lists {
+  margin: 2rem 0;
+}
+
+.memo-lists__list {
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.memo-lists__list a {
+  text-decoration: none;
+  color: #585551;
+}
+
+.form-items__item {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.form-items__item label {
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  vertical-align: middle;
+  width: 20%;
+  padding-right: 1rem;
+}
+
+.form-items__item input[type="text"] {
+  width: 75%;
+  padding: 0.3rem;
+}
+
+.form-items__item textarea {
+  vertical-align: middle;
+  width: 75%;
+  padding: 0.3rem;
+}
+
+.button-in-middle {
+  text-align: center;
+  margin: 2rem 3rem;
+}
+
+.memo-content {
+  font-size: 1.5rem;
+}
+
+.delete-form {
+  display: inline-block;
+}

@@ -1,0 +1,19 @@
+<h2 class="page-title">Edit memo</h2>
+<div class="main-items">
+  <form action="/memos/<%= memo[0] %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <div class="form-items">
+      <div class="form-items__item">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" value="<%= h memo[1]['title'] %>">
+      </div>
+      <div class="form-items__item">
+        <label for="content">Content</label>
+        <textarea name="content" id="content" rows="5"><%= h memo[1]['content'] %></textarea>
+      </div>
+      <div class="btn-wrapper button-in-middle">
+        <button type="submit" class="btn">Update</button>
+      </div>
+    </div>
+  </form>
+</div>
