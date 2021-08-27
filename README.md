@@ -4,8 +4,7 @@ This is a simple Memo application powered by Sinatra
 
 ## Usage
 
-1. Create database
-Start PostgreSQL and execute the following SQL
+1. Start PostgreSQL and Create database
 ( If [PostgreSQL](https://www.postgresql.org/) is not installed in your execution environment, please install it. )
 ```sql
 CREATE DATABASE sinatra_memo_app;
